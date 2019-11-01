@@ -78,9 +78,9 @@
       <h2>Risk-free trial</h2>
       <h3>Try for one month, no credit card required</h3>
       <form id=signup>
-        <input type=tel name=phone placeholder="Mobile phone">
-        <label><input type=checkbox name=sms> I agree to receive text messages at this number and understand that they may incur fees from my phone carrier.</label>
-        <button type=submit>Get started now</button>
+        <input type=tel name=phone placeholder="Mobile phone" required>
+        <label><input type=checkbox name=sms required> I agree to receive text messages at this number and understand that they may incur fees from my phone carrier.</label>
+        <button type=submit name=submit>Get started now</button>
       </form>
     </section>
 
@@ -94,10 +94,9 @@
   </main>
   
   <script>
-    !function(){
-      var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t,e){var n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src="https://cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(n,a);analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.1.0";
-      analytics.load("gozYNH5FHIS5Qnfm2Zh5ZtYX2PFUh7pR");
-      analytics.page();
+    !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t,e){var n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src="https://cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(n,a);analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.1.0";
+    analytics.load("gozYNH5FHIS5Qnfm2Zh5ZtYX2PFUh7pR");
+    analytics.page();
     }}();
   </script>
   
@@ -106,10 +105,11 @@
       var signup = document.getElementById("signup");
       signup.onsubmit = function (event) {
         event.preventDefault();
-        var sms = signup.elements["sms"];
-        var uuid = analytics.user().anonymousId();
-        analytics.identify(uuid, {phone: sms.value, subscription: "trial"});
-        analytics.track("Signup", {revenue: 0});
+        var phone = signup.elements["phone"];
+        for (var i = 0; i < signup.elements.length; ++i) {
+          signup.elements[i].disabled = true;
+        }
+        signup.elements["submit"].innerHTML = "Great! We’ll start soon.";
       };
     }();
   </script>
